@@ -23,13 +23,8 @@
  * <code>false</code> otherwise.
  */
 
-int isKaprekar (int n);
-
-  int main(int argc, char **argv){
-  long n;
-  
-  n = atoi(argv[1]);
-
+int isKaprekar (int n){
+	
   if(n < 1) {
     return 0;
   }
@@ -38,25 +33,31 @@ int isKaprekar (int n);
   long square, first, second, numberOfDigits;
   long modulus = 1;
   
-  square = n * n;
-  numberOfDigits = log10(n) + 1;
-
+  square = (long)n * (long)n;
+  numberOfDigits = log10(square) + 1;
+  i=1;
   //for each possible "split" of the square...
-  for(i=1; i<=numberOfDigits; i++) {
+  while(i<=numberOfDigits) {
+	i++;
     //increase the modulus by a factor of 10
     modulus *= 10;
 
     //split the square into two parts
     first = square / modulus;
-    second = square % modulus;
-
-    //test if the split makes a Kaprekar number
-    if(second > 0 &&
-       first + second == n) {
-      return (1);
-    } else {
-		return (0);
+	second = square - (modulus * first);
+	if(second > 0 && second < modulus && first + second == n) {
+       return (1);
 	}
+	for(first = square / modulus; first % 10 == 0 && first > 10; first = first / 10){
+		
+		if ((first % 10) != 0){
+			break;
+		}
+	}
+    //test if the split makes a Kaprekar number 	  
+	  if(second > 0 && second < modulus && first + second == n) {
+       return (1);
+	  }
   }
   return 0;
 }
