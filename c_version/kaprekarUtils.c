@@ -1,7 +1,7 @@
-#include<math.h>
-
-#include "kaprekarUtils.h"
-
+  #include<stdio.h>
+  #include<stdlib.h>
+  #include<math.h>
+  #include "kaprekarUtils.h"
 /**
  * <p>This function tests whether the given input <code>n</code>
  * is a Kaprekar Number or not.  A Kaprekar Number is a non-negative
@@ -22,22 +22,29 @@
  * @return <code>true</code> if <code>n</code> is a Kaprekar Number, 
  * <code>false</code> otherwise.
  */
-int isKaprekar(int n) {
+
+int isKaprekar (int n);
+
+  int main(int argc, char **argv){
+  long n;
+  
+  n = atoi(argv[1]);
 
   if(n < 1) {
-    return false;
+    return 0;
   }
 
   int i;
-  long square = n * (long) n;
-  int numDigits = (int) log10(n) + 1;
-  long modulus = 0;
-  long first, second;
+  long square, first, second, numberOfDigits;
+  long modulus = 1;
+  
+  square = n * n;
+  numberOfDigits = log10(n) + 1;
 
   //for each possible "split" of the square...
   for(i=1; i<=numberOfDigits; i++) {
     //increase the modulus by a factor of 10
-    modulous *= 10;
+    modulus *= 10;
 
     //split the square into two parts
     first = square / modulus;
@@ -46,9 +53,10 @@ int isKaprekar(int n) {
     //test if the split makes a Kaprekar number
     if(second > 0 &&
        first + second == n) {
-      return 1;
-    }
+      return (1);
+    } else {
+		return (0);
+	}
   }
   return 0;
-  
 }
